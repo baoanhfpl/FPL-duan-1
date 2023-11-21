@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label for="">Giá</label>
-        <input type="text" class="form-control" placeholder="Tên danh mục" name="price" value="<?=$price?>">
+        <input type="text" class="form-control" placeholder="Giá" name="price" value="<?=$price?>" required>
     </div>
     <div class="form-group">
         <label for="">Ảnh</label>
@@ -22,10 +22,10 @@
         <label for="">Danh mục</label>
         <select class="form-select" aria-label="Default select example" name="category_id">
             <?php 
-                $categories = select_all_cate();
+                $categories = query_all("categories");
                 foreach ($categories as $category) {
             ?>
-                <option value="<?=$category['id']?>" <?=$category['id'] == $id ? 'selected' : ''?>><?=$category['name']?></option>
+                <option value="<?=$category['id']?>" <?=$category['id'] == $category_id ? 'selected' : ''?>><?=$category['name']?></option>
             <?php } ?>
         </select>
     </div>

@@ -16,12 +16,14 @@
             <th>Email</th>
             <th>Tên đăng nhập</th>
             <th>Mật khẩu</th>
+            <th>Role</th>
             <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($users as $user) { 
             extract($user);
+            $user_role = query_one("roles", $role);
         ?>
             <tr>
                 <td><?=$id?></td>
@@ -29,9 +31,10 @@
                 <td><?=$email?></td>
                 <td><?=$username?></td>
                 <td><?=$password?></td>
+                <td><?=$user_role['name']?></td>
                 <td class="text-center">
-                    <button class="btn btn-primary">Xem chi tiết</button>
-                    <button class="btn btn-danger">Xóa</button>
+                    <a href="index.php?act=edit_user&user_id=<?=$id?>" class="btn btn-primary">Xem chi tiết</a>
+                    <a href="index.php?act=delete_user&user_id=<?=$id?>" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

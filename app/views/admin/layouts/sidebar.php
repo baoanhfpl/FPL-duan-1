@@ -23,6 +23,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="index.php?act=banners" class="nav-link">
+                        <i class="fa-solid fa-images"></i>
+                        <p>
+                            Banners
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="index.php?act=categories" class="nav-link">
                         <i class="fa-solid fa-list-ul"></i>
                         <p>
@@ -59,6 +68,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="index.php?act=contacts" class="nav-link">
+                        <i class="fa-solid fa-address-card"></i>
+                        <p>
+                            Contacts
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="index.php?act=orders" class="nav-link">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <p>
@@ -68,10 +86,28 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="index.php?act=contacts" class="nav-link">
-                        <i class="fa-solid fa-address-card"></i>
+                    <a href="index.php?act=promotions" class="nav-link">
+                        <i class="fa-solid fa-percent"></i>
                         <p>
-                            Contacts
+                            Promotions
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="index.php?act=colors" class="nav-link">
+                        <i class="fa-solid fa-palette"></i>
+                        <p>
+                            Colors
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="index.php?act=sizes" class="nav-link">
+                        <i class="fa-solid fa-minimize"></i>
+                        <p>
+                            Sizes
                         </p>
                     </a>
                 </li>
@@ -99,15 +135,6 @@
                             </a>
                         </li>
                     </ul> -->
-                </li>
-
-                <li class="nav-item">
-                    <a href="index.php?access=client" class="nav-link">
-                        <i class="fa-solid fa-address-card"></i>
-                        <p>
-                            Xem giao diện
-                        </p>
-                    </a>
                 </li>
         </nav>
         <!-- /.sidebar-menu -->

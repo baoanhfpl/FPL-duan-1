@@ -23,8 +23,8 @@
     <tbody>
         <?php foreach($comments as $comment) {
             extract($comment);
-            $user = select_one_user($user_id);
-            $product = select_one_product($product_id);
+            $user = query_one("users", $user_id);
+            $product = query_one('products', $product_id);
         ?>
             <tr>
                 <td><?=$id?></td>
@@ -37,7 +37,7 @@
                 <td><?=$stars?>/5</td>
                 <td><?=$date?></td>
                 <td class="text-center">
-                    <button class="btn btn-danger">Xóa</button>
+                    <a href="index.php?act=delete_comment&comment_id=<?=$id?>" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

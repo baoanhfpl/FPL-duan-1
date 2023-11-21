@@ -1,5 +1,5 @@
 <?php
-include "./pages/products/heading.php";
+// include "./pages/products/heading.php";
 
 ?>
 <!-- Shop Start -->

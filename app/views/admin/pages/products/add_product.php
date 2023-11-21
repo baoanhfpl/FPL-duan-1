@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
         <label for="">Giá</label>
-        <input type="text" class="form-control" placeholder="Tên danh mục" name="price" required>
+        <input type="text" class="form-control" placeholder="Giá" name="price" required>
     </div>
     <div class="form-group">
         <label for="">Ảnh</label>
@@ -21,7 +21,7 @@
         <select class="form-select" aria-label="Default select example" name="category_id" required>
             <option selected hidden>-- Chọn danh mục --</option>
             <?php 
-                $categories = select_all_cate();
+                $categories = query_all("categories");
                 foreach ($categories as $category) {
             ?>
                 <option value="<?=$category['id']?>"><?=$category['name']?></option>
@@ -29,4 +29,5 @@
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Thêm mới</button>
+    <a href="index.php?act=products" class="btn btn-secondary">Quay lại</a>
 </form>

@@ -45,6 +45,6 @@
         <?php
             }
         ?>
-        <script src="./public/js/web/categories.js"></script>
+        <script src="../../../public/js/web/categories.js"></script>
     </tbody>
 </table>

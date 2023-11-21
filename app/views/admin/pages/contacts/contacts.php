@@ -17,57 +17,35 @@
             <th>Tiêu đề</th>
             <th>Nội dung</th>
             <th>Ngày gửi</th>
+            <th>Trạng thái</th>
             <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Nguyễn Văn A</td>
-            <td>0987654321</td>
-            <td>anv@gmail.com</td>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>12/11/2023</td>
+        <?php 
+            foreach($contacts as $contact) {
+                extract($contact);
+                $user = query_one("users", $user_id);
+        ?>
+            <tr>
+            <td><?=$id?></td>
+            <td><?=$user['display_name']?></td>
+            <td><?=$tel?></td>
+            <td><?=$email?></td>
+            <td><?=$title?></td>
+            <td><?=$content?></td>
+            <td><?=$date?></td>
+            <td>
+                <?php if($status == 0) { ?>
+                    <a href="index.php?act=show_contact&contact_id=<?=$id?>" class="btn btn-secondary">Chưa phản hồi</a>
+                <?php }else { ?>
+                    <a href="index.php?act=hide_contact&contact_id=<?=$id?>" class="btn btn-success">Đã phản hồi</a>
+                <?php } ?>
+            </td>
             <td class="text-center">
-                <button class="btn btn-danger">Xóa</button>
+                <a href="index.php?act=delete_contact&contact_id=<?=$id?>" class="btn btn-danger">Xóa</a>
             </td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Nguyễn Văn B</td>
-            <td>0987654321</td>
-            <td>anv@gmail.com</td>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>12/11/2023</td>
-            <td class="text-center">
-                <button class="btn btn-danger">Xóa</button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Nguyễn Văn C</td>
-            <td>0987654321</td>
-            <td>anv@gmail.com</td>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>12/11/2023</td>
-            <td class="text-center">
-                <button class="btn btn-danger">Xóa</button>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Nguyễn Văn D</td>
-            <td>0987654321</td>
-            <td>anv@gmail.com</td>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>12/11/2023</td>
-            <td class="text-center">
-                <button class="btn btn-danger">Xóa</button>
-            </td>
-        </tr>
+        <?php } ?>
     </tbody>
 </table>
