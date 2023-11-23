@@ -3,7 +3,7 @@
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="index.php" class="text-decoration-none">
-                <img src="../../../public/img/logo.png" alt="">
+                <img src="../../../uploads/logo.png" alt="">
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
