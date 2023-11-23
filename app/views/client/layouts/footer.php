@@ -84,6 +84,7 @@
 
 <!-- Template Javascript -->
 <script src="../../../public/js/main.js"></script>
+<script src="../../../public/js/index.js"></script>
 </body>
 
 </html>

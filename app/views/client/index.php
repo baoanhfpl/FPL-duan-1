@@ -1,3 +1,11 @@
+<script>
+    var cart = JSON.parse(localStorage.getItem("cart"))
+    if(!Array.isArray(cart)) {
+        localStorage.setItem("cart", JSON.stringify([]))
+        cart = JSON.parse(localStorage.getItem("cart"))
+    }
+</script>
+
 <?php 
     ob_start();
     session_start();
@@ -25,9 +33,10 @@
                 include "./pages/cart/index.php";
                 break;
             case "detail_product":
-                if(isset($_GET['product_id'])) {
-                    $product_id = $_GET['product_id'];
-                    $product = query_one("products", $product_id);
+                if(isset($_GET['variant_id'])) {
+                    $variant_id = $_GET['variant_id'];
+                    $variant_res = query_one("variants", $variant_id);
+                    $product = query_one("products", $variant_res['product_id']);
                 }
                 include "./pages/detail_product/index.php";
                 break;
@@ -86,7 +95,6 @@
                 include "./pages/home/index.php";
         }
     }else {
-        $products = query_many("products", "status = 1 LIMIT 8");
         $categories = query_many("categories", "status = 1 LIMIT 6");
         include "./pages/home/index.php";
     }
