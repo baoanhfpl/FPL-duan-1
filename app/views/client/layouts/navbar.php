@@ -6,9 +6,10 @@
                 <h6 class="m-0">Categories</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
-            <nav class="position-absolute bg-light z-10 w-100 collapse 
+            <nav class="position-absolute bg-light w-100 collapse 
                 <?php if(!isset($_GET['act'])) {?> show <?php } ?>
-                 navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+                 navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical"
+                style="z-index: 999;">
                 <div class="navbar-nav w-100 overflow-hidden">
                     <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>

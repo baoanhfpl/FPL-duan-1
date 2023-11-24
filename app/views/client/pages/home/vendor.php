@@ -1,5 +1,5 @@
 <!-- Vendor Start -->
-<div class="container-fluid py-5">
+<!-- <div class="container-fluid py-5">
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel vendor-carousel">
@@ -30,5 +30,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Vendor End -->

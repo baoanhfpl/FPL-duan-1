@@ -16,7 +16,10 @@
             </a>
             <a href="index.php?act=cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
+                <span class="badge custom-cart">0</span>
+                <script>
+                    document.querySelector(".custom-cart").innerText = cart.length
+                </script>
             </a>
         </div>
     </div>

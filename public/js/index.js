@@ -1,3 +1,9 @@
-import toast from "./helper/toast.js";
+// const $ = document.querySelector.bind(document)
+// const $$ = document.querySelectorAll.bind(document)
 
-toast()
+// const customStyleEls = $$(".js-style")
+
+// customStyleEls.forEach(element => {
+//     element.children[0].querySelector('input').checked = true
+// });
+

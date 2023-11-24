@@ -10,7 +10,7 @@
                     $products = query_many("products", "category_id = ".$product['category_id']);
                     foreach($products as $product) {
                         extract($product);
-                        if($id != $product_id) {
+                        if($id != $product['id']) {
                 ?>
                     <div class="card product-item border-0">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
