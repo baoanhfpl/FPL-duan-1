@@ -1,18 +1,14 @@
-<script>
-    var cart = JSON.parse(localStorage.getItem("cart"))
-    if(!Array.isArray(cart)) {
-        localStorage.setItem("cart", JSON.stringify([]))
-        cart = JSON.parse(localStorage.getItem("cart"))
-    }
-</script>
-
 <?php 
     ob_start();
     session_start();
+    if(!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
     include "../../models/pdo_library.php";
     include "../../helper/handle_submit.php";
     include "../../models/sql_funcs.php";
     include "../../models/user_sql_funcs.php";
+    include "../../models/contact_sql_funcs.php";
     include "./layouts/header.php";
     if(isset($_GET["act"])) {
         $act = $_GET["act"];
@@ -32,16 +28,73 @@
             case "cart":
                 include "./pages/cart/index.php";
                 break;
+            case "add_to_cart":
+                if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $variant_id = $_POST['variant_id'];
+                    $quantity = $_POST['quantity'];
+                    $variant = query_one("variants", $variant_id);
+
+                    if(!isset($_SESSION['user_id'])) {
+                        header("Location: index.php?act=detail_product&product_id="
+                        .$variant['product_id']."&color_id=".$variant['color_id']
+                        ."&size_id=".$variant['size_id']."&status=error");
+                        die;
+                    }
+
+                    $flag = true;
+                    if(count($_SESSION['cart']) > 0) {
+                        for($i=0; $i<count($_SESSION['cart']); $i++){
+                            if($_SESSION['cart'][$i]['variant_id'] == $variant_id) {
+                                $_SESSION['cart'][$i]['quantity'] += $quantity;
+                                $flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if($flag) {
+                        $data = ["variant_id" => $variant_id, "quantity" => $quantity];
+                        $_SESSION['cart'][] = $data;
+                    }
+
+                    header("Location: index.php?act=detail_product&product_id="
+                    .$variant['product_id']."&color_id=".$variant['color_id']
+                    ."&size_id=".$variant['size_id']."&status=success");
+                }
+                break;
             case "detail_product":
-                if(isset($_GET['variant_id'])) {
-                    $variant_id = $_GET['variant_id'];
-                    $variant_res = query_one("variants", $variant_id);
-                    $product = query_one("products", $variant_res['product_id']);
+                if(isset($_GET['product_id']) && isset($_GET['color_id'])) {
+                    $product_id = $_GET['product_id'];
+                    $color_id = $_GET['color_id'];
+                    $variant = query_many("variants", "product_id=$product_id and color_id=$color_id");
+                    $product = query_one("products", $product_id);
                 }
                 include "./pages/detail_product/index.php";
                 break;
             case "checkout":
+                if(isset($_SESSION['user_id'])) {
+                    $user_id = $_SESSION['user_id'];
+                    $user = query_one("users", $user_id);
+                    extract($user);
+                }
                 include "./pages/checkout/checkout.php";
+                break;
+            case "add_contact":
+                if(isset($_SESSION['user_id'])) {
+                    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $user_id = $_SESSION['user_id'];
+                        $email = $_POST['email'];
+                        $tel = $_POST['tel'];
+                        $title = $_POST['title'];
+                        $content = $_POST['content'];
+
+                        $user = query_one("users", $user_id);
+                        insert_contact($user_id, $title, $content, $tel, $email, $user['address']);
+                        $_SESSION['success'] = "Gửi liên hệ thành công";
+                        header("Location: index.php?act=contact&status=success");
+                        die;
+                    }
+                }
+                include "./pages/contact/index.php";
                 break;
             case "login":
                 if($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -1,32 +1,32 @@
 <!-- Contact Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Contact For Any Queries</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Liên hệ</span></h2>
     </div>
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
             <div class="contact-form">
-                <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                <?php showMessage() ?>
+                <form action="index.php?act=add_contact" method="post">
+                    <input type="hidden" value="<?=$_SESSION['user_id']?>">
                     <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email..." required="required" data-validation-required-message="Vui lòng nhập email" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                        <input type="tel" class="form-control" id="tel" name="tel" placeholder="Số điện thoại..." required="required" data-validation-required-message="Vui lòng nhập số điện thoại" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                        <input type="text" class="form-control" id="subject" name="title" placeholder="Tiêu đề..." required="required" data-validation-required-message="Vui lòng nhập tiêu đề" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <textarea class="form-control" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                        <textarea class="form-control" rows="6" id="message" name="content" placeholder="Nội dung..." required="required" data-validation-required-message="Vui lòng nhập nội dung"></textarea>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-                            Message</button>
+                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Gửi</button>
                     </div>
                 </form>
             </div>

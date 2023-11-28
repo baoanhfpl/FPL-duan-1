@@ -26,7 +26,8 @@
                         </div>
                         
                         <div class="card-footer d-flex justify-content-center bg-light border">
-                            <a href="index.php?act=detail_product&variant_id=<?=$id?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                            <a href="index.php?act=detail_product&product_id=<?=$product_id?>&color_id=<?=$color_id?>" 
+                            class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                         </div>
                     </div>
                 </div>
