@@ -3,7 +3,7 @@
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block position-relative p-0">
             <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                <h6 class="m-0">Categories</h6>
+                <h6 class="m-0">Danh mục</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
             <nav class="position-absolute bg-light w-100 collapse 
@@ -11,14 +11,6 @@
                  navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical"
                 style="z-index: 999;">
                 <div class="navbar-nav w-100 overflow-hidden">
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item">Men's Dresses</a>
-                            <a href="" class="dropdown-item">Women's Dresses</a>
-                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                        </div>
-                    </div> -->
                     <?php 
                         $categories = query_many("categories", "status=1");
                         foreach($categories as $category) {
@@ -41,19 +33,19 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="index.php" class="nav-item nav-link
                             <?php if(!isset($_GET['act'])) { echo "active"; } ?>
-                        ">Home</a>
+                        ">Trang chủ</a>
                         <a href="index.php?act=products" class="nav-item nav-link
                             <?php if(isset($_GET['act'])) {
                                 if($_GET['act'] == "products") { 
                                     echo "active"; 
                             }} ?>
-                        ">Products</a>
+                        ">Sản phẩm</a>
                         <a href="index.php?act=contact" class="nav-item nav-link
                             <?php if(isset($_GET['act'])) {
                                 if($_GET['act'] == "contact") { 
                                     echo "active"; 
                             }} ?>
-                        ">Contact</a>
+                        ">Liên hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <?php 
@@ -67,8 +59,8 @@
                                 }
                             }else {
                         ?>
-                        <a href="index.php?act=login" class="nav-item nav-link">Login</a>
-                        <a href="index.php?act=register" class="nav-item nav-link">Register</a>
+                        <a href="index.php?act=login" class="nav-item nav-link">Đăng nhập</a>
+                        <a href="index.php?act=register" class="nav-item nav-link">Đăng ký</a>
                         <?php } ?>
                     </div>
                 </div>

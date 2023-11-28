@@ -6,90 +6,97 @@
                 <thead class="bg-secondary text-dark">
                     <tr>
                         <th>Ảnh</th>
-                        <th>Products</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Remove</th>
+                        <th>Tên</th>
+                        <th>Size</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                        <th>Xóa</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                <script>
-                    document.cookie = `cart=${JSON.stringify(cart)}`
-                </script>
                     <?php 
-                        $data = $_COOKIE['cart'];
-                        $res = (array) json_decode($data);
-                        foreach($res as $res) {
-                            $result = (array) $res;
-                            $variant = query_one("variants", $result['variantId']);
-                            $product = query_one("products", $variant['product_id']);
-                            $images = query_many("product_images", "product_id=".$product['id']." and color_id=".$variant['color_id']);
+                        //Delete cart
+                        if (isset($_GET['key'])) {
+                            $key = $_GET['key'];
+                            unset($_SESSION['cart'][$key]);
+                            header("Location: index.php?act=cart");
+                        }
+                        if(isset($_SESSION['cart'])) {
+                            if(count($_SESSION['cart']) > 0) {
+                                foreach($_SESSION['cart'] as $key => $res) {
+                                    $variant = query_one("variants", $res['variant_id']);
+                                    $product = query_one("products", $variant['product_id']);
+                                    $images = query_many("product_images", "product_id=".$variant['product_id']." and color_id=".$variant['color_id']);
+                                    $size = query_one("sizes", $variant['size_id']);
                     ?>
-                        <tr>
+                        <tr class="js-cart-row">
                             <td>
                                 <img src="../../../uploads/<?=$images[0]['image']?>" alt="" style="width: 50px;">
                             </td>
                             <td class="align-middle" style="width: 300px; overflow: hidden;">
-                                <?=$product['name']?>
+                                <a href="index.php?act=detail_product&product_id=<?=$product['id']?>&color_id=<?=$variant['color_id']?>&size_id=<?=$variant['size_id']?>"><?=$product['name']?></a>
                             </td>
-                            <td class="align-middle"><?=number_format($product['price'])?>đ</td>
+                            <td><?=$size['name']?></td>
+                            <td class="align-middle js-row-price"><?=number_format($product['price'])?>đ</td>
+                            <td class="align-middle"><?=$res['quantity']?></td>
+                            <td class="align-middle js-total-pr js-row-total">
+                                <?=number_format($product['price'] * $res['quantity'])?>đ
+                            </td>
                             <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                                <a class="btn btn-sm btn-primary" href="index.php?act=cart&key=<?php echo $key; ?>"><i class="fa fa-times"></i></a>
                             </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
                         </tr>
-                    <?php
-                        }
-                    ?>
-                    
+                    <?php }}} ?>
                 </tbody>
             </table>
         </div>
         <div class="col-lg-4">
-            <form class="mb-5" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary">Apply Coupon</button>
-                    </div>
-                </div>
-            </form>
             <div class="card border-secondary mb-5">
                 <div class="card-header bg-secondary border-0">
-                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    <h4 class="font-weight-semi-bold m-0">Chi tiết</h4>
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pt-1">
-                        <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium">$150</h6>
+                        <h6 class="font-weight-medium">Tổng tiền hàng</h6>
+                        <h6 class="font-weight-medium js-total-price"></h6>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$10</h6>
+                        <h6 class="font-weight-medium">Phí vận chuyển</h6>
+                        <h6 class="font-weight-medium"><?=count($_SESSION['cart'])>0?"30,000":0?>đ</h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">$160</h5>
+                        <h5 class="font-weight-bold">Tổng thanh toán</h5>
+                        <h5 class="font-weight-bold js-total-bill">0đ</h5>
                     </div>
-                    <a href="index.php?act=checkout" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
+                    <a href="index.php?act=checkout" class="btn btn-block btn-primary my-3 py-3">Thanh toán</a>
                 </div>
             </div>
+            <script>
+                document.querySelectorAll('.js-quantity-input').forEach(input => {
+                    input.onchange = (e) => {
+                        const cartRow = e.target.closest('.js-cart-row')
+                        const price = cartRow.querySelector(".js-row-price")
+                        const total = cartRow.querySelector(".js-row-total")
+                        total.innerText = (+price.innerText.replace("đ", '').replaceAll(",", '') * e.target.value).toLocaleString() + 'đ'
+                        handleCal()
+                    }
+                })
+
+                function handleCal() {
+                    console.log('handle')
+                    let totalPrice = 0
+                    document.querySelectorAll(".js-total-pr").forEach(element => {
+                        totalPrice += +element.innerText.replace("đ", '').replaceAll(',', '')
+                    })
+                    console.log(totalPrice)
+                    document.querySelector(".js-total-price").innerText = totalPrice.toLocaleString() + 'đ'
+                    document.querySelector(".js-total-bill").innerText = (totalPrice + <?=count($_SESSION['cart'])>0?30000:0?>).toLocaleString() + 'đ'
+                }
+                handleCal()
+            </script>
         </div>
     </div>
 </div>

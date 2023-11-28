@@ -22,6 +22,7 @@ include "../../models/user_sql_funcs.php";
 include "../../models/product_sql_funcs.php";
 include "../../models/image_sql_funcs.php";
 include "../../models/order_sql_funcs.php";
+include "../../models/role_sql_funcs.php";
 include "../../models/promotion_sql_funcs.php";
 include "./layouts/header.php";
 include "./layouts/sidebar.php";
@@ -720,6 +721,46 @@ include "./layouts/sidebar.php";
             $size_id = $_GET['size_id'];
             delete_row("sizes", $size_id);
             header("Location: index.php?act=sizes");
+          }
+          break;
+        //roles
+        case "roles":
+          $roles = query_all("roles");
+          include "./pages/roles/roles.php";
+          break;
+        case "add_role":
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $name = $_POST['name'];
+
+            insert_role($name);
+            header("Location: index.php?act=roles");
+          }
+          include "./pages/roles/add_role.php";
+          break;
+        case "edit_role":
+          if (isset($_GET['role_id'])) {
+            $role_id = $_GET['role_id'];
+            if($role_id == 1) {
+              header("Location: index.php?act=roles");
+            }
+            $role = query_one("roles", $role_id);
+            extract($role);
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+              $id = $_POST['id'];
+              $name = $_POST['name'];
+
+              update_role($id, $name);
+              $_SESSION['success'] = "<div class='success'>Lưu thông tin thành công</div>";
+              header("Location: index.php?act=edit_role&role_id=$role_id&status=success");
+            }
+          }
+          include "./pages/roles/edit_role.php";
+          break;
+        case "delete_role":
+          if (isset($_GET['role_id'])) {
+            $role_id = $_GET['role_id'];
+            delete_row("roles", $role_id);
+            header("Location: index.php?act=roles");
           }
           break;
         // Chart

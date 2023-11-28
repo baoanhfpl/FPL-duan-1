@@ -113,6 +113,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="index.php?act=roles" class="nav-link">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <p>
+                            Roles
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="index.php?act=charts" class="nav-link">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>

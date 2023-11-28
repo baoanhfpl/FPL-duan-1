@@ -10,16 +10,9 @@
 
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="" class="btn border">
-                <i class="fas fa-heart text-primary"></i>
-                <span class="badge">0</span>
-            </a>
             <a href="index.php?act=cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge custom-cart">0</span>
-                <script>
-                    document.querySelector(".custom-cart").innerText = cart.length
-                </script>
+                <span class="badge custom-cart"><?=count($_SESSION['cart'])?></span>
             </a>
         </div>
     </div>

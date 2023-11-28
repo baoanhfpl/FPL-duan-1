@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>OLIVIA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../../../public/img/favicon.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -23,11 +23,18 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="../../../public/css/style.css" rel="stylesheet">
+
+    <!-- Ajax -->
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"
+    ></script>
 </head>
 
 <body>
 
-<?php 
+    <?php
     include "./layouts/topbar.php";
     include "./layouts/navbar.php";
-?>
+    ?>
