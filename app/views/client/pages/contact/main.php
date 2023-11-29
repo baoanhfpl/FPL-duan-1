@@ -8,7 +8,7 @@
             <div class="contact-form">
                 <?php showMessage() ?>
                 <form action="index.php?act=add_contact" method="post">
-                    <input type="hidden" value="<?=$_SESSION['user_id']?>">
+                    <input type="hidden" value="<?=isset($_SESSION['user_id'])?$_SESSION['user_id']:''?>">
                     <div class="control-group">
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email..." required="required" data-validation-required-message="Vui lòng nhập email" />
                         <p class="help-block text-danger"></p>
