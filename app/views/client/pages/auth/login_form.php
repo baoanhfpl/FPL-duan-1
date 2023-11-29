@@ -4,13 +4,13 @@
   <!-- Email input -->
   <div class="form-outline mb-4">
     <label class="form-label" for="form2Example1">Tên đăng nhập</label>
-    <input type="text" id="form2Example1" name="username" class="form-control border border-primary" />
+    <input type="text" id="form2Example1" name="username" class="form-control border border-primary" required/>
   </div>
 
   <!-- Password input -->
   <div class="form-outline mb-4">
     <label class="form-label" for="form2Example2">Password</label>
-    <input type="password" id="form2Example2" name="password" class="form-control border border-primary" />
+    <input type="password" id="form2Example2" name="password" class="form-control border border-primary" required/>
   </div>
 
   <!-- Submit button -->
