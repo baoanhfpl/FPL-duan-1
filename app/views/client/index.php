@@ -8,6 +8,7 @@
     include "../../helper/handle_submit.php";
     include "../../models/sql_funcs.php";
     include "../../models/user_sql_funcs.php";
+    include "../../models/order_sql_funcs.php";
     include "../../models/contact_sql_funcs.php";
     include "./layouts/header.php";
     if(isset($_GET["act"])) {
@@ -77,6 +78,45 @@
                     extract($user);
                 }
                 include "./pages/checkout/checkout.php";
+                break;
+            case "pay":
+                if(isset($_POST['pay-btn'])) {
+                    $user_id = $_SESSION['user_id'];
+                    $name = $_POST['name'];
+                    $tel = $_POST['tel'];
+                    $address = $_POST['address'];
+                    $date = date("Y-m-d H:i:s");
+                    $order_id = insert_order($user_id, $name, $address, $tel, $date);
+
+                    foreach($_SESSION['cart'] as $value) {
+                        $variant = query_one("variants", $value['variant_id']);
+                        $product = query_one("products", $variant['product_id']);
+                        $total_price = $product['price'] * $value['quantity'];
+                        insert_detail_order($order_id, $variant['id'], $product['price'], $value['quantity'], 0, $total_price);
+                    }
+                    $_SESSION['cart'] = [];
+                    header("Location: index.php?act=checkout&status=success");
+                }
+                break;
+            case "order_history":
+                $user_id = $_SESSION['user_id'];
+                $orders = query_many("orders", "user_id=$user_id");
+                include "./pages/order_history/order_history.php";
+                break;
+            case 'detail_order':
+                if(isset($_GET['order_id'])) {
+                    $order_id = $_GET['order_id'];
+                    $order_detail = query_many("detail_order", "order_id=$order_id");
+                }
+                include "./pages/order_history/detail_order.php";
+                break;
+            case "order_confirm":
+                if(isset($_GET['order_id'])) {
+                    $order_id = $_GET['order_id'];
+                    $sql = "UPDATE orders set status=5 where id=$order_id";
+                    pdo_execute($sql);
+                    header("Location: index.php?act=order_history");
+                }
                 break;
             case "add_contact":
                 if(isset($_SESSION['user_id'])) {

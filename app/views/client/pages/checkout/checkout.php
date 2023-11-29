@@ -1,6 +1,14 @@
+<?php 
+    if(isset($_GET['status'])) {
+        if($_GET['status'] == 'success') {
+            include "./pages/checkout/success_modal.php";
+        }
+    }
+?>
+
 <!-- Checkout Start -->
 <div class="container-fluid pt-5">
-    <div class="row px-xl-5">
+    <form class="row px-xl-5" action="index.php?act=pay" method="post">
         <div class="col-lg-8">
             <div class="mb-4">
                 <h4 class="font-weight-semi-bold mb-4">Thông tin người nhận</h4>
@@ -11,15 +19,15 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label>Tên người nhận</label>
-                        <input class="form-control" type="text" placeholder="Tên người nhận" required value="<?=$display_name?>">
+                        <input class="form-control" type="text" name="name" placeholder="Tên người nhận" required value="<?=$display_name?>">
                     </div>
                     <div class="col-md-6 form-group">
                         <label>Số điện thoại</label>
-                        <input class="form-control" type="text" placeholder="+123 456 789" required value="<?=$tel?>">
+                        <input class="form-control" type="text" name="tel" placeholder="+123 456 789" required value="<?=$tel?>">
                     </div>
                     <div class="col-md-6 form-group">
                         <label>Địa chỉ</label>
-                        <input class="form-control" type="text" placeholder="Nhập địa chỉ" required value="<?=$address?>">
+                        <input class="form-control" type="text" name="address" placeholder="Nhập địa chỉ" required value="<?=$address?>">
                     </div>
                 </div>
             </div>
@@ -78,28 +86,16 @@
                 <div class="card-body">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                            <input type="radio" class="custom-control-input" name="payment" id="paypal" checked>
                             <label class="custom-control-label" for="paypal">Thanh toán khi nhận hàng</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                            <label class="custom-control-label" for="banktransfer">Chuyển khoản</label>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
-                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Thanh toán</button>
+                    <button name="pay-btn" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Thanh toán</button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Checkout End -->
