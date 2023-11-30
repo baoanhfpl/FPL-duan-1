@@ -15,7 +15,7 @@
         pdo_execute($sql);
     }
 
-    function insert_detail_order($order_id, $variant_id, $price, $quantity, $discount = 0, $total_price) {
+    function insert_detail_order($order_id, $variant_id, $price, $quantity, $discount, $total_price) {
         $sql = "INSERT INTO detail_order(order_id, variant_id, price, quantity, discount, total_price)
         VALUES($order_id, $variant_id, $price, $quantity, $discount, $total_price)";
         pdo_execute($sql);
