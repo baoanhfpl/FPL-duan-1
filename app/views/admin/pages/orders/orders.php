@@ -11,8 +11,7 @@
 <table class="table table-bordered">
     <thead>
         <tr class="text-center table-primary">
-            <th>ID</th>
-            <th>Người đặt</th>
+            <th>UserID</th>
             <th>Người nhận</th>
             <th>Địa chỉ</th>
             <th>SĐT</th>
@@ -29,8 +28,7 @@
                 $status = query_one("order_status", $status);
         ?>
             <tr>
-                <td><?=$id?></td>
-                <td><?=$user['display_name']?></td>
+                <td><?=$user['id']?></td>
                 <td><?=$name?></td>
                 <td><?=$address?></td>
                 <td><?=$tel?></td>

@@ -4,9 +4,7 @@
         <thead>
             <tr class="text-center table-primary">
                 <th>Mã đơn hàng</th>
-                <th>Địa chỉ nhận hàng</th>
-                <th>Số lượng</th>
-                <th>Tổng tiền</th>
+                <th>ID người dùng</th>
                 <th>Ngày đặt</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
@@ -21,19 +19,12 @@
                 $sql = "SELECT COUNT(*) as total from detail_order where order_id=$id";
                 $res = pdo_query($sql);
                 $order_product = query_many("detail_order", "order_id=$id");
-                $total = 0;
-                foreach($order_product as $value) {
-                    $total += $value['total_price'];
-                }
             ?>
                 <tr>
                     <td><?= $id ?></td>
-                    <td><?= $address ?></td>
-                    <td><?=$res[0]['total']?></td>
-                    <td><?=number_format($total)?>đ</td>
+                    <td><?=$user_id?></td>
                     <td><?= $date ?></td>
                     <td class="text-center">
-                        
                         <?php if($status == 4){ ?>
                             <a href="index.php?act=order_confirm&order_id=<?=$id?>" class="btn btn-success">Đã nhận được hàng</a>
                         <?php }else if($status == 5) { ?>
@@ -51,6 +42,9 @@
                         <?php } ?>
                     </td>
                     <td class="text-center">
+                        <?php if($status == 1) { ?>
+                            <a href="index.php" class="btn btn-danger">Hủy</a>
+                        <?php } ?>
                         <a href="index.php?act=detail_order&order_id=<?= $id ?>" class="btn btn-primary">Chi tiết</a>
                     </td>
                 </tr>

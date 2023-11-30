@@ -14,9 +14,10 @@
 <table class="table table-bordered">
     <thead>
         <tr class="text-center table-primary">
-            <th>Biến thể</th>
             <th>Hình ảnh</th>
             <th>Tên sản phẩm</th>
+            <th>Màu</th>
+            <th>Size</th>
             <th>Giá</th>
             <th>Số lượng</th>
             <th>Chiết khấu</th>
@@ -34,13 +35,18 @@
                 $product = query_one("products", $variant['product_id']);
                 $total_product += $quantity;
                 $total_money += $total_price;
+                $product_image = query_many("product_images", "product_id=".$variant['product_id']." and color_id=".$variant['color_id']);
+                $color = query_one("colors", $variant['color_id']);
+                $size = query_one("sizes", $variant['size_id']);
+                $order = query_one("orders", $order_id);
         ?>
             <tr>
-                <td><?=$variant['id']?></td>
                 <td>
-                    <img src="../../../uploads/<?=$product['image']?>" alt="">
+                    <img src="../../../uploads/<?=$product_image[0]['image']?>" alt="">
                 </td>
                 <td><?=$product['name']?></td>
+                <td><?=$color['name']?></td>
+                <td><?=$size['name']?></td>
                 <td><?=number_format($product['price'])?>đ</td>
                 <td><?=$quantity?></td>
                 <td><?=$discount?></td>
@@ -54,14 +60,16 @@
     </tbody>
     <tfoot>
         <tr class="table-success">
-            <th colspan="4" class="text-center">Tổng hóa đơn</th>
+            <th colspan="5" class="text-center">Tổng hóa đơn</th>
             <td><?=$total_product?></td>
             <td colspan="3" class="text-center"><?=number_format($total_money)?>đ</td>
         </tr>
     </tfoot>
 </table>
 <div class="d-flex justify-content-between">
-    <a href="index.php?act=delete_order&order_id=<?=$order_id?>" class="btn btn-danger">Hủy đơn hàng</a>
+    <?php if($order['status'] == 1) { ?>
+        <a href="index.php?act=delete_order&order_id=<?=$order_id?>" class="btn btn-danger">Hủy đơn hàng</a>
+    <?php } ?>
     <form action="index.php?act=order_products&order_id=<?=$order_id?>" method="post">
         <select class="btn btn-primary" name="status">
         <?php
