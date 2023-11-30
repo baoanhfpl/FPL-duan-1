@@ -22,10 +22,7 @@
         </div>
         
         <?php 
-            foreach ($products as $res) {
-                $product_id = $res['id'];
-                $variants = query_many("variants", "status = 1 and product_id=$product_id group by product_id, color_id");
-            
+            // $variants = query_many("variants", "status = 1 group by product_id, color_id LIMIT 12");
             foreach($variants as $variant) {
                 extract($variant);
                 $product = query_one("products", $product_id);
@@ -48,7 +45,7 @@
                     </div>
                 </div>
             </div>
-        <?php }} ?>
+        <?php } ?>
         <script src="../../../public/js/web/products.js"></script>
     </div>
 </div>
