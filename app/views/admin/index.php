@@ -769,8 +769,6 @@ include "./layouts/sidebar.php";
           break;
       }
     } else {
-      $orders = query_all("orders");
-      $users = query_all("users");
       include "./layouts/home.php";
     }
 
