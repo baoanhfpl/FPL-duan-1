@@ -8,24 +8,11 @@
                         <input type="text" class="form-control js-search-product" placeholder="Tìm kiếm theo tên">
                     </div>
                 </form>
-                <div class="dropdown ml-4">
-                    <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                        <a class="dropdown-item" href="#">Latest</a>
-                        <a class="dropdown-item" href="#">Popularity</a>
-                        <a class="dropdown-item" href="#">Best Rating</a>
-                    </div>
-                </div>
             </div>
         </div>
         
         <?php 
-            foreach ($products as $res) {
-                $product_id = $res['id'];
-                $variants = query_many("variants", "status = 1 and product_id=$product_id group by product_id, color_id");
-            
+            // $variants = query_many("variants", "status = 1 group by product_id, color_id LIMIT 12");
             foreach($variants as $variant) {
                 extract($variant);
                 $product = query_one("products", $product_id);
@@ -48,7 +35,7 @@
                     </div>
                 </div>
             </div>
-        <?php }} ?>
+        <?php } ?>
         <script src="../../../public/js/web/products.js"></script>
     </div>
 </div>
