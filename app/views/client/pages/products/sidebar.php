@@ -73,6 +73,12 @@
                     extract($size);
             ?>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" name="size[]" class="custom-control-input" id="size-<?= $id ?>" value="<?= $id ?>">
+                    <label class="custom-control-label" for="size-<?= $id ?>"><?= $name ?></label>
+                </div>
+            <?php
+                }
+            ?>
             <!-- Size End -->
         </form>
     </div>
