@@ -10,17 +10,35 @@
     include "../../models/user_sql_funcs.php";
     include "../../models/order_sql_funcs.php";
     include "../../models/contact_sql_funcs.php";
+    include "../../models/product_sql_funcs.php";
     include "./layouts/header.php";
     if(isset($_GET["act"])) {
         $act = $_GET["act"];
         switch($act) {
             case "products":
+                $category_id=null;
+                $price=null;
+                $colors=null;
+                $sizes=null;
                 if(isset($_GET['category_id'])) {
                     $category_id = $_GET['category_id'];
-                    $products = query_many("products", "category_id = $category_id");
+                    // $products = query_many("products", "category_id = $category_id");
+
                 }else {
-                    $products = query_all("products");
+                    // $products = query_all("products");
                 }
+
+                if(isset($_GET["price"])){
+                    $price = $_GET["price"];
+                }
+                if(isset($_GET["color"])){
+                    $colors = $_GET["color"];
+                }
+                if(isset($_GET["size"])){
+                    $sizes = $_GET["size"];
+                }
+                
+                $variants = build_filter_product($category_id,$price,$colors,$sizes);
                 include "./pages/products/index.php";
                 break;
             case "contact":
