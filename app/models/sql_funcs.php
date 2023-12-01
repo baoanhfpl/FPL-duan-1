@@ -9,6 +9,10 @@
         return pdo_query($sql);
     }
 
+    function query($sql) {
+        return pdo_query($sql);
+    }
+
     function query_one($table, $id) {
         $sql = "SELECT * from $table where id = $id";
         return pdo_query_one($sql);
