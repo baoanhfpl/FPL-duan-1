@@ -45,6 +45,7 @@
             </div>
             <?php 
                 $colors = query_all("colors");
+                $i=1;
                 foreach($colors as $color) {
                     extract($color);
             ?>
@@ -53,6 +54,7 @@
                     <label class="custom-control-label" for="color-<?= $id ?>"><?=$name?></label>
                 </div>
             <?php
+                    $i++;
                 }
             ?>
             <!-- Color End -->
