@@ -3,13 +3,13 @@
     <table class="table table-bordered">
         <thead>
             <tr class="text-center table-primary">
+                <th>ID người đặt</th>
                 <th>Mã đơn hàng</th>
                 <th>Địa chỉ nhận hàng</th>
-                <th>Số lượng</th>
-                <th>Tổng tiền</th>
                 <th>Ngày đặt</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
+                <th>Chi tiết</th>
             </tr>
         </thead>
         <tbody>
@@ -18,19 +18,11 @@
                 extract($order);
                 $user = query_one("users", $user_id);
                 $order_status = query_one("order_status", $status);
-                $sql = "SELECT COUNT(*) as total from detail_order where order_id=$id";
-                $res = pdo_query($sql);
-                $order_product = query_many("detail_order", "order_id=$id");
-                $total = 0;
-                foreach($order_product as $value) {
-                    $total += $value['total_price'];
-                }
             ?>
                 <tr>
+                    <td><?= $user_id ?></td>
                     <td><?= $id ?></td>
                     <td><?= $address ?></td>
-                    <td><?=$res[0]['total']?></td>
-                    <td><?=number_format($total)?>đ</td>
                     <td><?= $date ?></td>
                     <td class="text-center">
                         
@@ -48,6 +40,13 @@
                                     echo 'primary';
                                 }
                             ?>"><?=$order_status['name']?></button>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php if($status == 1) { ?>
+                            <a href="index.php?act=cancel_order&order_id=<?=$id?>" class="btn btn-danger">Hủy đơn</a>
+                        <?php }else { ?>
+                            <button class="btn btn-danger" disabled>Hủy đơn</button>
                         <?php } ?>
                     </td>
                     <td class="text-center">
